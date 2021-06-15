@@ -12,7 +12,7 @@ import theme from "common/theme/theme";
 import { SnackbarProvider } from "notistack";
 import { useNotistackStyles } from "common/theme/notistackTheme";
 import { Provider } from "react-redux";
-import store from "../app/store";
+import store from "../common/store/store";
 export const cache = createCache({ key: "css", prepend: true });
 
 function MyApp({ Component, pageProps }: AppProps) {
