@@ -3,15 +3,26 @@ import LayoutWrapper from "common/wrappers";
 import Postform, { InitialValues, PostformProps } from "components/PostForm";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-
+import { useSnackbar } from "notistack";
 const initialValues: InitialValues = {
   title: "",
   content: "",
 };
 
 const IndexPage: NextPage = () => {
-  const handleSubmit: PostformProps["onSubmit"] = (values, actions) => {
-    console.log({ values });
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleSubmit: PostformProps["onSubmit"] = async (values, actions) => {
+    try {
+      console.log({ values });
+      enqueueSnackbar("Dodano!", {
+        variant: "success",
+      });
+    } catch (err) {
+      enqueueSnackbar("Wystąpił błąd!", {
+        variant: "error",
+      });
+    }
   };
 
   return (
