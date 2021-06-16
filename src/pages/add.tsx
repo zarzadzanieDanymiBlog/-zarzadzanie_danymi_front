@@ -5,6 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useSnackbar } from "notistack";
 import axios from "common/axios";
+import Head from "next/head";
+
 const initialValues: InitialValues = {
   title: "",
   content: "",
@@ -16,7 +18,7 @@ const IndexPage: NextPage = () => {
   const handleSubmit: PostformProps["onSubmit"] = async (values, actions) => {
     try {
       console.log({ values });
-      await axios.post("/item", values);
+      await axios.post("/post", values);
       enqueueSnackbar("Dodano!", {
         variant: "success",
       });
@@ -29,6 +31,9 @@ const IndexPage: NextPage = () => {
 
   return (
     <LayoutWrapper>
+      <Head>
+        <title>Blog | Dodaj nowy post</title>
+      </Head>
       <Box mb={4}>
         <Typography variant="h3" component="h1">
           Dodaj nowy post
