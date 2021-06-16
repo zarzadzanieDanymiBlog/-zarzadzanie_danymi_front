@@ -46,6 +46,7 @@ const PostForm = ({
             multiline
             rows={10}
             fullWidth
+            variant="outlined"
           />
         </Box>
         <Box mb={4} display="flex" justifyContent="flex-end">

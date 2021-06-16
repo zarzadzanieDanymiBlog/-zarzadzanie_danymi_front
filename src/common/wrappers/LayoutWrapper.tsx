@@ -3,6 +3,7 @@ import { ReactComponent as Logo } from "common/assets/logo.svg";
 import { ReactNode } from "react";
 import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
+import Footer from "components/Footer";
 
 export interface LayoutWrapperProps {
   children: ReactNode;
@@ -15,10 +16,15 @@ export interface LayoutWrapperProps {
 const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
   return (
     <>
-      <NavBar logo={<Logo />} />
-      <Container maxWidth="lg">
-        <Box mt={4}>{children}</Box>
-      </Container>
+      <Box display="flex" flexDirection="column" minHeight="100vh">
+        <NavBar logo={<Logo height={50} />} />
+        <Box flexGrow={1}>
+          <Container maxWidth="lg">
+            <Box mt={4}>{children}</Box>
+          </Container>
+        </Box>
+        <Footer />
+      </Box>
     </>
   );
 };
