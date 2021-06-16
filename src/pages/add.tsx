@@ -4,6 +4,7 @@ import Postform, { InitialValues, PostformProps } from "components/PostForm";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useSnackbar } from "notistack";
+import axios from "common/axios";
 const initialValues: InitialValues = {
   title: "",
   content: "",
@@ -15,6 +16,7 @@ const IndexPage: NextPage = () => {
   const handleSubmit: PostformProps["onSubmit"] = async (values, actions) => {
     try {
       console.log({ values });
+      await axios.post("/item", values);
       enqueueSnackbar("Dodano!", {
         variant: "success",
       });
