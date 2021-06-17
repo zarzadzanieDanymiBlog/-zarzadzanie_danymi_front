@@ -1,63 +1,52 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
+import Head from "next/head";
+import LayoutWrapper from "common/wrappers";
+import axios from "common/axios";
+import { Post as IPost } from "../../types/API";
+import Post from "components/Post";
+import Box from "@material-ui/core/Box";
+import styled from "styled-components";
 
-import Counter from '../features/counter/Counter'
-import styles from '../styles/Home.module.css'
+const StyledPostWrapper = styled.div`
+  margin-right: 0;
+  width: 100%;
+  max-width: unset;
+  margin-bottom: 8px;
 
-const IndexPage: NextPage = () => {
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Redux Toolkit</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <header className={styles.header}>
-        <img src="/logo.svg" className={styles.logo} alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className={styles.link}
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className={styles.link}
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className={styles.link}
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className={styles.link}
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
-  )
+  @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
+    max-width: 300px;
+    margin-right: 8px;
+    width: 100%;
+  }
+`;
+
+interface IndexPageProps {
+  posts: IPost[];
 }
 
-export default IndexPage
+const IndexPage = ({ posts }: IndexPageProps) => {
+  return (
+    <LayoutWrapper>
+      <Head>
+        <title>Blog</title>
+      </Head>
+      <Box display="flex" flexWrap="wrap">
+        {posts.map((item) => (
+          <StyledPostWrapper key={item.id}>
+            <Post {...item} />
+          </StyledPostWrapper>
+        ))}
+      </Box>
+    </LayoutWrapper>
+  );
+};
+
+export default IndexPage;
+
+export async function getServerSideProps() {
+  const response = await axios.get("/posts");
+  return {
+    props: {
+      posts: response.data,
+    },
+  };
+}

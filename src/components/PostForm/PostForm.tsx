@@ -7,11 +7,13 @@ import Button from "@material-ui/core/Button";
 export interface InitialValues {
   title: string;
   content: string;
+  imageLink: string;
 }
 
 const validationSchema = yup.object({
-  title: yup.string().required(),
+  title: yup.string().max(100, "max 100 znaków").required(),
   content: yup.string().required(),
+  imageLink: yup.string().required(),
 });
 
 export interface PostformProps {
@@ -47,6 +49,14 @@ const PostForm = ({
             rows={10}
             fullWidth
             variant="outlined"
+          />
+        </Box>
+        <Box mb={4}>
+          <TextField
+            type="text"
+            name="imageLink"
+            label="Link do zdjęcia"
+            fullWidth
           />
         </Box>
         <Box mb={4} display="flex" justifyContent="flex-end">
