@@ -10,15 +10,19 @@ import Head from "next/head";
 const initialValues: InitialValues = {
   title: "",
   content: "",
+  imageLink: "",
 };
 
 const IndexPage: NextPage = () => {
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleSubmit: PostformProps["onSubmit"] = async (values, actions) => {
+  const handleSubmit: PostformProps["onSubmit"] = async (
+    values,
+    { resetForm }
+  ) => {
     try {
-      console.log({ values });
       await axios.post("/post", values);
+      resetForm();
       enqueueSnackbar("Dodano!", {
         variant: "success",
       });

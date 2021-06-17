@@ -1,6 +1,7 @@
 export interface Post {
   title: string;
   content: string;
-  date: number;
+  date: string;
   id: string;
+  imageLink: string;
 }
