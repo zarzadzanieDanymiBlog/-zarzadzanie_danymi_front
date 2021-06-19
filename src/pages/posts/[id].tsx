@@ -10,22 +10,42 @@ import IconButton from "@material-ui/core/IconButton";
 import { useState } from "react";
 import Modal from "components/Modal";
 import Button from "components/Button";
-
+import { useSnackbar } from "notistack";
+import axios from "common/axios";
+import { useRouter } from "next/router";
+import { ROUTES } from "common/constants/paths";
 interface PostPageProps {
   post: Post;
 }
 
 const PostPage = ({ post }: PostPageProps) => {
-  const [isDeleteNoteModalOpen, setIsDeleteNoteModalOpen] = useState(false);
-  const [isEditNoteModalOpen, setIsEditNoteModalOpen] = useState(false);
+  const [isDeletePostModalOpen, setisDeletePostModalOpen] = useState(false);
+  const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const handleDeleteItem = async (postId: string) => {
+    try {
+      await axios.delete(`/post/${postId}`);
+
+      enqueueSnackbar("Usunięto!", {
+        variant: "success",
+      });
+      router.push(ROUTES.HOME);
+    } catch {
+      enqueueSnackbar("Wystąpił błąd!", {
+        variant: "error",
+      });
+    }
+  };
+
   return (
     <LayoutWrapper>
       <Box display="flex" justifyContent="flex-end" mb={2}>
-        <IconButton onClick={() => setIsEditNoteModalOpen(true)}>
+        <IconButton onClick={() => router.push(`posts/${post.id}/edit`)}>
           <EditIcon />
         </IconButton>
         <Box ml={1}>
-          <IconButton onClick={() => setIsDeleteNoteModalOpen(true)}>
+          <IconButton onClick={() => setisDeletePostModalOpen(true)}>
             <DeleteIcon />
           </IconButton>
         </Box>
@@ -77,8 +97,8 @@ const PostPage = ({ post }: PostPageProps) => {
 
       <Modal
         minWidth={480}
-        open={isDeleteNoteModalOpen}
-        onClose={() => setIsDeleteNoteModalOpen(false)}
+        open={isDeletePostModalOpen}
+        onClose={() => setisDeletePostModalOpen(false)}
       >
         <>
           <Box mb={4}>
@@ -89,14 +109,14 @@ const PostPage = ({ post }: PostPageProps) => {
           </Box>
           <Box mt={2} display="flex" justifyContent="flex-end">
             <Box mr={1}>
-              <Button onClick={() => setIsDeleteNoteModalOpen(false)}>
+              <Button onClick={() => setisDeletePostModalOpen(false)}>
                 Anuluj
               </Button>
             </Box>
             <Button
               variant="contained"
               color="secondary"
-              onClick={() => console.log("dfgf")}
+              onClick={() => handleDeleteItem(post.id)}
             >
               Usuń
             </Button>
