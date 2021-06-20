@@ -4,12 +4,19 @@ import { GetStaticProps } from "next";
 import LayoutWrapper from "common/wrappers";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-
+import { useRouter } from "next/router";
+import CircularProgress from "@material-ui/core/CircularProgress";
 interface PostPageProps {
   post: Post;
 }
 
 const PostPage = ({ post }: PostPageProps) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <CircularProgress />;
+  }
+
   return (
     <LayoutWrapper>
       <Box p={2} display="flex">

@@ -8,6 +8,7 @@ import { ROUTES } from "common/constants/paths";
 import { useRouter } from "next/router";
 import { removeToken } from "common/auth/tokens";
 import { StyledLink } from "./NavBar.styled";
+import { getToken } from "common/auth/tokens";
 
 export interface NavBarProps {
   logo: React.ReactNode;
@@ -24,6 +25,14 @@ function NavBar({ logo, withLogoutBtn }: NavBarProps) {
   const handleLogout = () => {
     removeToken();
     router.push(ROUTES.CMS_LOGIN);
+  };
+
+  const isLogged = () => {
+    if (typeof window !== "undefined") {
+      return !getToken();
+    } else {
+      return false;
+    }
   };
 
   return (
@@ -59,8 +68,10 @@ function NavBar({ logo, withLogoutBtn }: NavBarProps) {
                 Wyloguj
               </Button>
             ) : (
-              <StyledLink href={ROUTES.CMS_LOGIN}>
-                <Typography component="span">Zaloguj</Typography>
+              <StyledLink href={!!isLogged() ? ROUTES.CMS_LOGIN : ROUTES.CMS}>
+                <Typography component="span">
+                  {!!isLogged() ? "Zaloguj" : "Panel"}
+                </Typography>
               </StyledLink>
             )}
           </Box>
