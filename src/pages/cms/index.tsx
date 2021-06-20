@@ -61,7 +61,7 @@ const CmsPage = () => {
   };
 
   return (
-    <LayoutWrapper>
+    <LayoutWrapper withLogoutBtn>
       {isLoading ? (
         <CircularProgress />
       ) : isErr ? (

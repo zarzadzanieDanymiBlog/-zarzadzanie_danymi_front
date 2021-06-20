@@ -41,7 +41,7 @@ const IndexPage: NextPage = () => {
   };
 
   return (
-    <LayoutWrapper>
+    <LayoutWrapper withLogoutBtn>
       <Head>
         <title>Blog | Dodaj nowy post</title>
       </Head>

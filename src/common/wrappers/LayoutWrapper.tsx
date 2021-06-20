@@ -7,17 +7,19 @@ import Footer from "components/Footer";
 
 export interface LayoutWrapperProps {
   children: ReactNode;
+  withLogoutBtn?: boolean;
 }
 
 /**
  * Komponent zwracający uzupełniony o podstawowe elementy układ strony
  * @param {React.ReactNode} children - główna zawartość
+ * @param {boolean} withLogoutBtn - okresla czy ma pojawić się przycisk do wylogowania
  * */
-const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
+const LayoutWrapper = ({ children, withLogoutBtn }: LayoutWrapperProps) => {
   return (
     <>
       <Box display="flex" flexDirection="column" minHeight="100vh">
-        <NavBar logo={<Logo height={50} />} />
+        <NavBar logo={<Logo height={50} />} withLogoutBtn={withLogoutBtn} />
         <Box flexGrow={1}>
           <Container maxWidth="lg">
             <Box mt={4}>{children}</Box>
