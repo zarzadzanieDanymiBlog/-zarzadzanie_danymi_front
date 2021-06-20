@@ -5,8 +5,10 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { useSnackbar } from "notistack";
 import axios from "common/axios";
+import { useRouter } from "next/router";
 import Head from "next/head";
-
+import { getToken } from "common/auth/tokens";
+import { ROUTES } from "common/constants/paths";
 const initialValues: InitialValues = {
   title: "",
   content: "",
@@ -15,6 +17,11 @@ const initialValues: InitialValues = {
 
 const IndexPage: NextPage = () => {
   const { enqueueSnackbar } = useSnackbar();
+  const router = useRouter();
+
+  if (typeof window !== "undefined" && !getToken()) {
+    router.push(ROUTES.CMS_LOGIN);
+  }
 
   const handleSubmit: PostformProps["onSubmit"] = async (
     values,
