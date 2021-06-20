@@ -15,7 +15,12 @@ export interface TextFieldProps
  * @extends {MuiTextFieldProps}
  * @param {string}  name - atrybut identyfikujący element do wprowadzania tekstu
  */
-const FormikTextField = ({ name, helperText, ...rest }: TextFieldProps) => {
+const FormikTextField = ({
+  name,
+  helperText,
+  variant = "standard",
+  ...rest
+}: TextFieldProps) => {
   const [field, meta] = useField(name);
 
   return (
@@ -24,6 +29,7 @@ const FormikTextField = ({ name, helperText, ...rest }: TextFieldProps) => {
       value={field.value}
       onChange={field.onChange}
       onBlur={field.onBlur}
+      variant={variant}
       error={meta.touched && !!meta.error}
       helperText={(meta.touched && meta.error) || helperText}
       {...rest}

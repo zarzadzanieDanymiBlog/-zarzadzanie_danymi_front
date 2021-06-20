@@ -7,6 +7,8 @@ import Link from "components/Link";
 import { ROUTES } from "common/constants/paths";
 import { useRouter } from "next/router";
 import { removeToken } from "common/auth/tokens";
+import { StyledLink } from "./NavBar.styled";
+
 export interface NavBarProps {
   logo: React.ReactNode;
   withLogoutBtn?: boolean;
@@ -46,18 +48,22 @@ function NavBar({ logo, withLogoutBtn }: NavBarProps) {
             </Box>
           </Box>
 
-          {withLogoutBtn && (
-            <Box
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              color="primary.contrastText"
-            >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            color="primary.contrastText"
+          >
+            {withLogoutBtn ? (
               <Button color="inherit" onClick={handleLogout}>
                 Wyloguj
               </Button>
-            </Box>
-          )}
+            ) : (
+              <StyledLink href={ROUTES.CMS_LOGIN}>
+                <Typography component="span">Zaloguj</Typography>
+              </StyledLink>
+            )}
+          </Box>
         </Box>
       </AppBar>
     </div>

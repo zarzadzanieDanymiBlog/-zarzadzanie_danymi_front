@@ -11,8 +11,7 @@ import { useEffect } from "react";
 import theme from "common/theme/theme";
 import { SnackbarProvider } from "notistack";
 import { useNotistackStyles } from "common/theme/notistackTheme";
-import { Provider } from "react-redux";
-import store from "../common/store/store";
+
 export const cache = createCache({ key: "css", prepend: true });
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -26,29 +25,27 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const notistackStyles = useNotistackStyles();
   return (
-    <Provider store={store}>
-      <CacheProvider value={cache}>
-        <StylesProvider injectFirst>
-          <MuiThemeProvider theme={theme}>
-            <CssBaseline />
-            <StyledThemeProvider theme={theme}>
-              <SnackbarProvider
-                maxSnack={5}
-                classes={{
-                  variantSuccess: notistackStyles.success,
-                  variantError: notistackStyles.error,
-                  variantWarning: notistackStyles.warning,
-                  variantInfo: notistackStyles.info,
-                }}
-              >
-                <CreateGlobalStyle />
-                <Component {...pageProps} />
-              </SnackbarProvider>
-            </StyledThemeProvider>
-          </MuiThemeProvider>
-        </StylesProvider>
-      </CacheProvider>
-    </Provider>
+    <CacheProvider value={cache}>
+      <StylesProvider injectFirst>
+        <MuiThemeProvider theme={theme}>
+          <CssBaseline />
+          <StyledThemeProvider theme={theme}>
+            <SnackbarProvider
+              maxSnack={5}
+              classes={{
+                variantSuccess: notistackStyles.success,
+                variantError: notistackStyles.error,
+                variantWarning: notistackStyles.warning,
+                variantInfo: notistackStyles.info,
+              }}
+            >
+              <CreateGlobalStyle />
+              <Component {...pageProps} />
+            </SnackbarProvider>
+          </StyledThemeProvider>
+        </MuiThemeProvider>
+      </StylesProvider>
+    </CacheProvider>
   );
 }
 

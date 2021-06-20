@@ -60,6 +60,7 @@ const Login = ({ logo, onSubmit }: LoginProps) => {
                 type="email"
                 name="email"
                 label="email"
+                placeholder="admin@admin.pl"
                 fullWidth
                 InputProps={{
                   startAdornment: (
@@ -77,6 +78,7 @@ const Login = ({ logo, onSubmit }: LoginProps) => {
                 type="password"
                 name="password"
                 label="password"
+                placeholder="qwerty"
                 fullWidth
                 InputProps={{
                   startAdornment: (
