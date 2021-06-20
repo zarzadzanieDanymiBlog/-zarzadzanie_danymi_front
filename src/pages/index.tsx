@@ -29,7 +29,7 @@ const IndexPage = ({ posts }: IndexPageProps) => {
       <Head>
         <title>Blog</title>
       </Head>
-      <Box display="flex" flexWrap="wrap">
+      <Box display="flex" flexWrap="wrap" mb={6}>
         {posts.map((item) => (
           <StyledPostWrapper key={item.id}>
             <Post {...item} />
