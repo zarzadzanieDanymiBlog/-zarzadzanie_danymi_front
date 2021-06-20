@@ -11,6 +11,7 @@ import { useSnackbar } from "notistack";
 import Modal from "components/Modal";
 import Button from "components/Button";
 import Box from "@material-ui/core/Box";
+import Link from "next/link";
 const CmsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isErr, setIsErr] = useState(false);
@@ -69,13 +70,15 @@ const CmsPage = () => {
       ) : (
         <>
           <Box display="flex" justifyContent="flex-end" mb={4}>
-            <Button variant="contained" color="primary">
-              Nowy
-            </Button>
+            <Link href={ROUTES.POST_ADD}>
+              <Button variant="contained" color="primary" component="a">
+                Nowy
+              </Button>
+            </Link>
           </Box>
           <Table
             rows={data}
-            onEditClick={(id) => router.push(`cms/item/${id}/edit`)}
+            onEditClick={(id) => router.push(ROUTES.EDIT_POST(id))}
             onDeleteClick={(id) =>
               setisDeletePostModalOpen({ isOpen: true, postId: id })
             }

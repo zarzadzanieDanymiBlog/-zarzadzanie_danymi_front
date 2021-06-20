@@ -23,7 +23,8 @@ import EditIcon from "@material-ui/icons/Edit";
 import Box from "@material-ui/core/Box";
 import DeleteIcon from "@material-ui/icons/Delete";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import Link from "components/Link";
+import { ROUTES } from "common/constants/paths";
+import NextLink from "next/link";
 
 const useStyles1 = makeStyles((theme: Theme) =>
   createStyles({
@@ -181,7 +182,7 @@ function CustomTable({ rows, onDeleteClick, onEditClick }: TableProps) {
           <TableRow>
             <TableCell>Tytuł</TableCell>
             <TableCell align="left">Skrócony opis</TableCell>
-            <TableCell align="right">Akcje</TableCell>
+            <TableCell align="left">Akcje</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -205,9 +206,11 @@ function CustomTable({ rows, onDeleteClick, onEditClick }: TableProps) {
                   justifyContent="flex-end"
                   alignItems="center"
                 >
-                  <Link href={`/item/${row.id}`}>
-                    <VisibilityIcon />
-                  </Link>
+                  <NextLink href={ROUTES.POST(row.id)}>
+                    <IconButton component="a">
+                      <VisibilityIcon />
+                    </IconButton>
+                  </NextLink>
 
                   {onEditClick && onDeleteClick && (
                     <>
