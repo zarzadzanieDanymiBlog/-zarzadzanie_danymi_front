@@ -75,7 +75,7 @@ const CmsPage = () => {
           </Box>
           <Table
             rows={data}
-            onEditClick={(id) => router.push(`cms/item/${id}/edit`)}
+            onEditClick={(id) => router.push(ROUTES.EDIT_POST(id))}
             onDeleteClick={(id) =>
               setisDeletePostModalOpen({ isOpen: true, postId: id })
             }

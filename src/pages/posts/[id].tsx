@@ -42,7 +42,7 @@ const PostPage = ({ post }: PostPageProps) => {
             <Box display="flex">
               <Box mr={1}>
                 <Typography variant="body2">
-                  Utworzonio:
+                  Utworzono:
                   {post?.date
                     ? new Date(post?.date).toLocaleDateString()
                     : undefined}
